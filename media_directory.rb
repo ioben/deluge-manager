@@ -6,9 +6,10 @@ class MediaDirectory
         scan_file_sizes!
     end
 
-    # Given the path to a file, check if it exists
-    # in MediaDirectory's directory.
-    # Checks first with size of file, then a hash.
+
+    # Given the path to a file, check if it exists in MediaDirectory's directory.
+    #
+    # * Checks first with size of file, then a hash (using compute_file_hash).
     def file_exists?(filepath)
         cfilesize = File.stat(filepath).size
 
@@ -27,6 +28,7 @@ class MediaDirectory
 
 
     private
+    # Cache metadata of files in the directory being managed.
     def scan_file_sizes!
         Dir.glob(File.join(@directory, '**/*')) do |filepath|
             next if File.directory? filepath
@@ -40,6 +42,7 @@ class MediaDirectory
         end
     end
 
+    # Computes a hash of a file given its filepath, only compares up to first 100MB of file.
     def compute_file_hash(filepath)
         count = 0
         md5 = Digest::MD5.new

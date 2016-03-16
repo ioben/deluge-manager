@@ -1,0 +1,8 @@
+{
+    "media_directory": "",
+    "download_directory": "",
+    "connection": {
+        "host": "localhost", "port": 58846,
+        "login": "clientlocal", "password": "password"
+    }
+}

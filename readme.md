@@ -13,7 +13,7 @@ Usage
 
 2. Copy the `config.example.json` to `config.json`
 
-3. Configure `config.json` correctly.  Running `ruby deluge_manager` should work as expected.
+3. Configure `config.json` correctly.  Running `ruby prune_finished.rb` should work as expected.
    - You can add a new deluge API user to `/var/lib/deluge/.config/deluge/auth` with format `username:password:5`.
 
 4. Create the following file `/etc/cron.d/deluge_manager`

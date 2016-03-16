@@ -1,18 +1,22 @@
-require 'deluge'
+require 'json'
 require 'digest/md5'
+require 'deluge'
 
 require_relative 'media_directory'
 require_relative 'classifier'
 
-config = JSON.load(File.join(File.dirname(__FILE__), 'config.json'))
+config = nil
+File.open(File.join(File.dirname(__FILE__), 'config.json'), 'r') do |filehandle|
+    config = JSON.load(filehandle)
+end
 
 def escape_glob(s)
     s.gsub(/[\\\{\}\[\]\*\?]/) { |x| "\\"+x }
 end
 
 # Initialize
-client = Deluge::Rpc::Client.new(config['connection'])
-media_dir = MediaDirectory.new node['media_directory']
+client = Deluge::Rpc::Client.new(Hash[config['connection'].map{|k,v| [k.to_sym,v]}])
+media_dir = MediaDirectory.new config['media_directory']
 
 # Connect and fetch basic metadata
 client.connect

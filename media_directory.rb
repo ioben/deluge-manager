@@ -36,7 +36,7 @@ class MediaDirectory
             @files[filepath] = {
                 path: filepath,
                 size: File.stat(filepath).size,
-                type: get_file_type(filepath),
+                type: Classifier.get_file_type(filepath),
                 hash: nil
             }
         end
